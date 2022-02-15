@@ -119,8 +119,10 @@ partial(jax.jit, static_argnums=(1,2))
 def Jordan_Wigner_OP(v, i, k):
                  zeros = jnp.zeros(v.shape[-1])
                  mask = jnp.arange(v.shape[-1])
-                 mask =  (mask > i) & (mask < k)
+                 mask =  (mask >= i) & (mask < k)
+ 
                  return  (-1)**(jnp.sum(jnp.where(mask, v, zeros) ))
+                 
 
 
 def zeroth_energy_experiment(v, J, N):
@@ -161,13 +163,13 @@ def first_ord_energy(v1, v2, J, N):
            sx_ind = jnp.sort(jnp.array([cre_ind[0], static_ind[i]]))
            
            
-           #sgn1 =  (-1)**(jnp.sum(v1[dx_ind[0]:(dx_ind[1])])%2)
+
            sgn1 = Jordan_Wigner_OP(v1, dx_ind[0], dx_ind[1])
        
            v_intermediate = v1.at[des_ind[0]].set(0)
            v_intermediate = v_intermediate.at[static_ind[0]].set(0)
        
-           #sgn2 =  (-1)**(jnp.sum(v_intermediate[sx_ind[0]:(sx_ind[1])])%2)
+
            sgn2 = Jordan_Wigner_OP(v_intermediate, sx_ind[0], sx_ind[1])
            H += sgn1*sgn2*J[I_J_conv(sx_ind[0], sx_ind[1]), I_J_conv(dx_ind[0], dx_ind[1])]
        return H
@@ -177,11 +179,11 @@ def second_ord_energy(v1, v2, J, L, N):
 
       dx_ind = jnp.where((v1-v2) == 1, size = 2)[0]
       sx_ind = jnp.where((v1-v2) == -1, size = 2)[0]
-      #sgn1 =  (-1)**(jnp.sum(v1[dx_ind[0]:(dx_ind[1])])%2)
+
       sgn1 = Jordan_Wigner_OP(v1, dx_ind[0], dx_ind[1])
       v_intermediate = v1.at[dx_ind[0]].set(0)
       v_intermediate = v_intermediate.at[dx_ind[1]].set(0)
-      #sgn2 =  (-1)**(jnp.sum(v_intermediate[sx_ind[0]:(sx_ind[1])])%2)
+
       sgn2 = Jordan_Wigner_OP(v_intermediate, sx_ind[0], sx_ind[1])
       
 
@@ -242,6 +244,5 @@ def Exact_ground_gen(L, seed):
 
     
 
-v = jnp.array([1,1,1,1,1,1,1,1])
-print(Jordan_Wigner_OP(v, 0, 1))
+
 

@@ -1,0 +1,33 @@
+#!/usr/local_rwth/bin/zsh
+
+
+
+
+#SBATCH --job-name=syk_nn181 # The job name.
+#SBATCH -c 8         # The number of cpu cores to use.
+#SBATCH --time=47:59:00              # The time the job will take to run.
+#SBATCH --mem-per-cpu=3200M        # The memory the job will use per cpu core.
+### SBATCH --account=rwth0722
+#SBATCH --mail-type=NONE
+#SBATCH --mail-user=passetti@physik.rwth-aachen.de
+
+
+#SBATCH --output=/home/yz004406/neural_network_cl/syk_AI/NN_cluster/Bash/output6
+#
+
+### Change to the work directory
+cd /home/yz004406/neural_network_cl/syk_AI/NN_cluster
+### Execute your application
+
+
+
+module load python/3.8.11
+
+
+
+mpirun -np 4 python3 play.py 6 18 1 1000 1000
+
+echo $?
+
+date
+

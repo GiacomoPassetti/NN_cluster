@@ -1,54 +1,62 @@
-import itertools 
-import jax.numpy as jnp
+import netket as nk
+from netket.operator import AbstractOperator
 import numpy as np
+import jax.numpy as jnp
 import jax
 from jax import jit
-from jax import lax
-from jax.numpy.linalg import eigh
 from functools import partial
-import sys
+from netket.hilbert import Fock, Spin
+from netket.vqs.mc.kernels import batch_discrete_kernel
+from jax.numpy.linalg import eigh
+import netket.experimental as nkx
 from J_matrix import J_matrix
-
+from netket.models import Jastrow
+import itertools
+import sys
+import time
 
 L = int(sys.argv[1])
-seed = int(sys.argv[2])
+N = int(L/2)
+alpha = int(sys.argv[2])
+seed = int(sys.argv[3])
+steps = int(sys.argv[4])
+samples = int(sys.argv[5])
+lr = [0.1, 0.01, 0.005, 0.001]
 J = jnp.array(np.load("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
 print(J)
 
-def states_gen(L,N):
-    which = np.array(list(itertools.combinations(range(L), N)))
-    #print(which)
-    grid = np.zeros((len(which), L), dtype="int8")
-
-    # Magic
-    grid[np.arange(len(which))[None].T, which] = 1
-    
-    return grid
+class XOperator(AbstractOperator):
+  @property
+  def dtype(self):
+    return float
+  @property
+  def is_hermitian(self):
+    return True
 
 
-@partial(jax.vmap, in_axes = (0, 0, None, None, None))
-def mat_conv(states, transitions, L, N, seed):
-        bin = jnp.flipud(2**jnp.arange(0, L, 1))
-        
-        NMax = (jnp.tensordot(jnp.ones(L),bin, axes = ([0], [0])))
-        
-        
-        # The transitions tensor get converted to the decimal base by contracting their L dimension. States gets repeated num_trans times to allow the states sorting. 
+def single_trans(states, L, N):
+      
+      transitions = jnp.zeros((N*N,L))
+      generator = jnp.ones_like(states) - states
+      ind_an = jnp.repeat(jnp.array(jnp.nonzero(states, size = N)), N)
+      ind_gen = jnp.tile(jnp.array(jnp.nonzero(generator, size = N)), N)
+      annihilator = transitions.at[jnp.arange(N*N), ind_an].set(-1)
+      generator = transitions.at[jnp.arange(N*N), ind_gen].set(1)
+      transitions = jnp.repeat(states.reshape(1, L), repeats = N*N, axis = 0)
+      transitions = transitions + generator + annihilator
+      
 
-        trans_converted = jnp.tensordot(transitions, bin, axes = ([1], [0]))
+      return transitions
 
-        states_conv = jnp.tensordot(states, bin, 1)
-        return states_conv, trans_converted
-
-@partial(jax.vmap, in_axes = (0, None, None))
-def single_trans_jax(states, L, N):
+@jax.vmap
+def single_trans_jax(states):
     return single_trans(states, L, N)
 
 def num_of_trans(N):
   return 1+(N**2)+(((N**2)*((N-1)**2))/4)
 
      
-@partial(jax.vmap, in_axes = (0, None, None))
+#@partial(jax.vmap, in_axes = (0, None, None))
 def double_trans_jax(states, L, N):
       """
         This calculates all double transitions for the syk model by using the single_trans function twice
@@ -69,29 +77,12 @@ def double_trans_jax(states, L, N):
       unique_trans = jnp.zeros(( int(num_of_trans(N)), L))
       sn = single_trans(states, L, N)
       
-      double_trans = single_trans_jax(sn, L, N)
+      double_trans = single_trans_jax(sn)
       
       double_trans = double_trans.reshape(N**4, L )
       unique_trans = unique_trans.at[:].set(jnp.unique(double_trans[:], axis = 0, size = int(num_of_trans(N)) ))
- 
-      return  unique_trans
-
-def single_trans(states, L, N):
+      return unique_trans
       
-      transitions = jnp.zeros((N*N,L))
-      generator = jnp.ones_like(states) - states
-      ind_an = jnp.repeat(jnp.array(jnp.nonzero(states, size = N)), N)
-      ind_gen = jnp.tile(jnp.array(jnp.nonzero(generator, size = N)), N)
-      annihilator = transitions.at[jnp.arange(N*N), ind_an].set(-1)
-      generator = transitions.at[jnp.arange(N*N), ind_gen].set(1)
-      transitions = jnp.repeat(states.reshape(1, L), repeats = N*N, axis = 0)
-      transitions = transitions + generator + annihilator
-      
-
-      return transitions
-
-
-#given two "real space" indeces i and j it returns the associate J_ij,lk index.  
 @jit
 def I_J_conv(i, j):
     return (((j-1)*(j)/2) + i).astype(int)
@@ -169,7 +160,8 @@ def second_ord_energy(v1, v2, J, L, N):
 
       return sgn1*sgn2*J[I_J_conv(sx_ind[0], sx_ind[1]), I_J_conv(dx_ind[0], dx_ind[1])]
 
-@partial(jax.vmap, in_axes = (0, 0, None, None, None))
+    
+#@partial(jax.vmap, in_axes = (0, 0, None, None))
 def energy_elements_syk(v, trans, J, L, N):
       H_syk = jnp.zeros(int(num_of_trans(N)), dtype = complex)
 
@@ -189,36 +181,79 @@ def energy_elements_syk(v, trans, J, L, N):
 
 
       return H_syk
+        
+
+@partial(jax.vmap, in_axes=(None, None, 0, None), out_axes=0)
+def e_loc(logpsi, pars, sigma, _extra_args):
+    eta, mels = get_conns_and_mels(sigma)
+    return jnp.sum(mels * jnp.exp(logpsi(pars, eta) - logpsi(pars, sigma)), axis=-1)
+
+
+@nk.vqs.get_local_kernel.dispatch
+def get_local_kernel(_vstate: nk.vqs.MCState, _op: XOperator):
+    return e_loc
+
+
+@nk.vqs.get_local_kernel_arguments.dispatch
+def get_local_kernel_arguments(vstate: nk.vqs.MCState, _op: XOperator):
+    return vstate.samples, ()
+
+
+def get_conns_and_mels(sigma):
+    # create the possible transitions from the state sigma
+    eta = double_trans_jax(sigma, L, N)
+
+   
+    # generate deterministically the associated entries of the syk hamiltonian
+    mels = energy_elements_syk(sigma, eta, J, L, N)
+    
+    return eta, mels
 
 
 
 
 
-def Exact_ground_gen_syk(L,J, seed):
-         N = int(L/2)
-         states = jnp.array(states_gen(L, N))
-
-         trans = double_trans_jax(states, L, N)
-
-         states_conv, trans_conv = mat_conv(states, trans, L, N, 0)
-         
-         seed_mat = energy_elements_syk(states, trans, J, L, N)
-         
-         H_SYK = jnp.zeros((states.shape[0], states.shape[0]), dtype = complex)
-         
-         for i in range(states.shape[0]):
-             for j in range(trans_conv.shape[1]):
-                   ind_column = np.where(states_conv == trans_conv[i, j])
-                   a = ind_column[0]
-         
-                   H_SYK = H_SYK.at[i, a].set(seed_mat[i, j])
-         
-         
-                   
-         u, v = eigh(H_SYK)
-         return u[0]
+my_graph = nk.graph.Chain(length = L)
+hi = Fock(n_max=1, n_particles=N, N=L)
+X_OP = XOperator(hi)
 
 
 
-print(Exact_ground_gen_syk(L, J,seed)/L)
-#np.save("J_ED_energy_L_"+str(L)+"seed_"+str(seed), Exact_ground_gen_syk(L, J,seed))
+
+
+
+
+
+
+#optimizer = nk.optimizer.Adam()
+optimizer = nk.optimizer.Sgd(learning_rate = 0.001)
+
+#print("For this value of the seed the exact GS energy is : ", Exact_ground(seed))
+#model = Module()
+model = nk.models.RBM(dtype = complex, alpha = alpha)
+#model = Jastrow()
+#model = nk.models.ARNNConv2D()
+vs  = nk.vqs.MCState(nk.sampler.MetropolisExchange(hilbert =hi, graph = my_graph, d_max = L),model = model , n_samples = samples)
+sr = nk.optimizer.SR()
+gs = nk.VMC(hamiltonian = X_OP, optimizer = optimizer, variational_state=vs, preconditioner=sr)
+
+
+
+t0 = time.time()
+ID = "J_progressive_run_L_"+str(L)+"seed_"+"{:.2f}".format(seed)+"alpha_"+"{:.2f}".format(alpha)+"samples_"+str(samples)
+
+logs = [
+    nk.logging.JsonLog(ID, save_params=True, save_params_every=1),
+    #nk.logging.StateLog("syk_mean", tar=True),
+]
+
+for step in range(len(lr)):
+   gs.optimizer = nk.optimizer.Sgd(learning_rate = lr[step])
+   gs.run(steps, out = logs)
+
+#gs.run(steps, out=logs)
+
+
+
+
+

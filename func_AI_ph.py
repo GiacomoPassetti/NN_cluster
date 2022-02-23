@@ -6,14 +6,7 @@ from jax import jit
 from jax import lax
 from jax.numpy.linalg import eigh
 from functools import partial
-import sys
-from J_matrix import J_matrix
 
-
-L = int(sys.argv[1])
-seed = int(sys.argv[2])
-J = jnp.array(np.load("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
-print(J)
 
 def states_gen(L,N):
     which = np.array(list(itertools.combinations(range(L), N)))
@@ -141,7 +134,8 @@ def first_ord_energy(v1, v2, J, N):
            
            dx_ind = jnp.sort(jnp.array([des_ind[0], static_ind[i]]))
            sx_ind = jnp.sort(jnp.array([cre_ind[0], static_ind[i]]))
-           
+           sgn_ph = ((-1)**( jnp.array([des_ind[0], static_ind[i]])[0]==dx_ind[0]).astype(int))*((-1)**(jnp.array([cre_ind[0], static_ind[i]])[0]==sx_ind[0]).astype(int))
+           sgn_JW_ph = Jordan_Wigner_OP(v1, 0, des_ind[0])*Jordan_Wigner_OP(v1.at[des_ind[0]].set(0), 0, cre_ind[0])
            
 
            sgn1 = Jordan_Wigner_OP(v1, dx_ind[0], dx_ind[1])
@@ -151,7 +145,7 @@ def first_ord_energy(v1, v2, J, N):
        
 
            sgn2 = Jordan_Wigner_OP(v_intermediate, sx_ind[0], sx_ind[1])
-           H += sgn1*sgn2*J[I_J_conv(sx_ind[0], sx_ind[1]), I_J_conv(dx_ind[0], dx_ind[1])]
+           H += ((sgn1*sgn2)+(0.5*(sgn_ph*sgn_JW_ph)))*J[I_J_conv(sx_ind[0], sx_ind[1]), I_J_conv(dx_ind[0], dx_ind[1])]
        return H
        
 
@@ -194,8 +188,15 @@ def energy_elements_syk(v, trans, J, L, N):
 
 
 
-def Exact_ground_gen_syk(L,J, seed):
+def Exact_ground_gen_syk_particle_hole(L, seed):
          N = int(L/2)
+         key = jax.random.PRNGKey(seed)
+         size_J = int(((L-2)*(L-1)/2) + L - 1)
+         J = jax.random.normal(key, shape = (size_J, size_J), dtype = complex)
+
+         norm = np.sqrt(4 * size_J)*((2*L)**(3/2))
+         J = (J + J.T.conj())*4/norm
+         
          states = jnp.array(states_gen(L, N))
 
          trans = double_trans_jax(states, L, N)
@@ -216,9 +217,6 @@ def Exact_ground_gen_syk(L,J, seed):
          
                    
          u, v = eigh(H_SYK)
-         return u[0]
+         return u[0]/L
 
 
-
-print(Exact_ground_gen_syk(L, J,seed)/L)
-#np.save("J_ED_energy_L_"+str(L)+"seed_"+str(seed), Exact_ground_gen_syk(L, J,seed))

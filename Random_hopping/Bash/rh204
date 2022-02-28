@@ -1,0 +1,176 @@
+(OK) Loading python 3.8.11
+(!!) The SciPy Stack is available: http://www.scipy.org/stackspec.html
+ Built with GCC compilers.
+srun: TOPOLOGY: warning -- no switch can reach all nodes through its descendants.Do not use route/topology
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+1
+Wed Feb 23 11:18:36 CET 2022
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+Traceback (most recent call last):
+  File "main_rh.py", line 125, in <module>
+    J = jnp.array(np.load("hop_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+  File "/home/yz004406/.local/lib/python3.8/site-packages/numpy/lib/npyio.py", line 417, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'hop_matrix_L_20seed_1.npy'
+1
+Wed Feb 23 11:18:41 CET 2022

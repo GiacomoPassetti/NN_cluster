@@ -2,26 +2,17 @@
 (!!) The SciPy Stack is available: http://www.scipy.org/stackspec.html
  Built with GCC compilers.
 srun: TOPOLOGY: warning -- no switch can reach all nodes through its descendants.Do not use route/topology
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-/home/yz004406/.local/lib/python3.8/site-packages/netket/vqs/mc/mc_state/state.py:58: UserWarning: n_samples=1000 (83 per MPI rank) does not divide n_chains=192, increased to 1152 (96 per MPI rank)
-  warnings.warn(
-  0%|          | 0/10 [00:00<?, ?it/s]slurmstepd: error: Detected 1 oom-kill event(s) in step 25651477.0 cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
-srun: error: ncm0236: task 0: Out Of Memory
-[mpiexec@ncm0236.hpc.itc.rwth-aachen.de] HYDT_bscu_wait_for_completion (../../tools/bootstrap/utils/bscu_wait.c:151): one of the processes terminated badly; aborting
-[mpiexec@ncm0236.hpc.itc.rwth-aachen.de] HYDT_bsci_wait_for_completion (../../tools/bootstrap/src/bsci_wait.c:36): launcher returned error waiting for completion
-[mpiexec@ncm0236.hpc.itc.rwth-aachen.de] HYD_pmci_wait_for_completion (../../pm/pmiserv/pmiserv_pmci.c:540): launcher returned error waiting for completion
-[mpiexec@ncm0236.hpc.itc.rwth-aachen.de] main (../../ui/mpich/mpiexec.c:1157): process manager error waiting for completion
-255
-Mon Feb 21 15:05:16 CET 2022
-slurmstepd: error: Detected 1 oom-kill event(s) in step 25651477.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+2
+Wed Feb 23 10:49:41 CET 2022

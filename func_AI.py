@@ -10,10 +10,7 @@ import sys
 from J_matrix import J_matrix
 
 
-L = int(sys.argv[1])
-seed = int(sys.argv[2])
-J = jnp.array(np.load("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
-print(J)
+
 
 def states_gen(L,N):
     which = np.array(list(itertools.combinations(range(L), N)))
@@ -138,19 +135,22 @@ def first_ord_energy(v1, v2, J, N):
 
        H = 0
        for i in range(static_ind.shape[0]):
+          
            
            dx_ind = jnp.sort(jnp.array([des_ind[0], static_ind[i]]))
            sx_ind = jnp.sort(jnp.array([cre_ind[0], static_ind[i]]))
-           
+
            
 
            sgn1 = Jordan_Wigner_OP(v1, dx_ind[0], dx_ind[1])
-       
-           v_intermediate = v1.at[des_ind[0]].set(0)
-           v_intermediate = v_intermediate.at[static_ind[0]].set(0)
-       
 
+           v_intermediate = v1.at[dx_ind[0]].set(0)
+           v_intermediate = v_intermediate.at[dx_ind[1]].set(0)
+           v_intermediate = v_intermediate.at[sx_ind[1]].set(1)
+
+           
            sgn2 = Jordan_Wigner_OP(v_intermediate, sx_ind[0], sx_ind[1])
+
            H += sgn1*sgn2*J[I_J_conv(sx_ind[0], sx_ind[1]), I_J_conv(dx_ind[0], dx_ind[1])]
        return H
        
@@ -204,7 +204,7 @@ def Exact_ground_gen_syk(L,J, seed):
          
          seed_mat = energy_elements_syk(states, trans, J, L, N)
          
-         H_SYK = jnp.zeros((states.shape[0], states.shape[0]), dtype = complex)
+         H_SYK = jnp.zeros((states.shape[0], states.shape[0]), dtype = jnp.complex64)
          
          for i in range(states.shape[0]):
              for j in range(trans_conv.shape[1]):
@@ -213,12 +213,25 @@ def Exact_ground_gen_syk(L,J, seed):
          
                    H_SYK = H_SYK.at[i, a].set(seed_mat[i, j])
          
-         
-                   
+
+                 
+         assert np.allclose(H_SYK, H_SYK.conj().T)
          u, v = eigh(H_SYK)
          return u[0]
 
 
 
-print(Exact_ground_gen_syk(L, J,seed)/L)
-#np.save("J_ED_energy_L_"+str(L)+"seed_"+str(seed), Exact_ground_gen_syk(L, J,seed))
+#Exact_ground_gen_syk(L , J, seed)
+seed = 1
+for L in [4, 6, 8, 10]:
+    print(L)
+
+    J = jnp.array(np.load("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+
+    assert np.allclose(J, J.conj().T)
+    np.save("ED_syk_energy_L"+str(L)+"seed_"+str(seed)+".npy", Exact_ground_gen_syk(L, J, seed))
+
+
+
+
+

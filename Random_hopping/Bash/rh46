@@ -1,0 +1,9 @@
+(OK) Loading python 3.8.11
+(!!) The SciPy Stack is available: http://www.scipy.org/stackspec.html
+ Built with GCC compilers.
+srun: TOPOLOGY: warning -- no switch can reach all nodes through its descendants.Do not use route/topology
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+python3: can't open file 'play.py': [Errno 2] No such file or directory
+2
+Wed Feb 23 11:13:33 CET 2022

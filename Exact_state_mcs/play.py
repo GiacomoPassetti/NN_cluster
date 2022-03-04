@@ -130,21 +130,25 @@ def first_ord_energy(v1, v2, J, N):
 
        H = 0
        for i in range(static_ind.shape[0]):
+          
            
            dx_ind = jnp.sort(jnp.array([des_ind[0], static_ind[i]]))
            sx_ind = jnp.sort(jnp.array([cre_ind[0], static_ind[i]]))
-           
+
            
 
            sgn1 = Jordan_Wigner_OP(v1, dx_ind[0], dx_ind[1])
-       
-           v_intermediate = v1.at[des_ind[0]].set(0)
-           v_intermediate = v_intermediate.at[static_ind[0]].set(0)
-       
 
+           v_intermediate = v1.at[dx_ind[0]].set(0)
+           v_intermediate = v_intermediate.at[dx_ind[1]].set(0)
+           v_intermediate = v_intermediate.at[sx_ind[1]].set(1)
+
+           
            sgn2 = Jordan_Wigner_OP(v_intermediate, sx_ind[0], sx_ind[1])
+
            H += sgn1*sgn2*J[I_J_conv(sx_ind[0], sx_ind[1]), I_J_conv(dx_ind[0], dx_ind[1])]
        return H
+       
        
 
 def second_ord_energy(v1, v2, J, L, N):
@@ -367,7 +371,7 @@ X_OP = XOperator(hi)
 
 
 #optimizer = nk.optimizer.Adam()
-optimizer = nk.optimizer.Sgd(learning_rate = 0.001)
+optimizer = nk.optimizer.Sgd(learning_rate = 0.1)
 
 #print("For this value of the seed the exact GS energy is : ", Exact_ground(seed))
 #model = Module()
@@ -395,10 +399,8 @@ for step in range(len(lr)):
    gs.run(steps, out = logs)
 """
 
-H = Exact_ground_gen_syk(L, J, seed)
-assert np.allclose(H, H.conj().T)
-print("oki doki")
-#gs.run(steps, out=logs)
+
+gs.run(steps, out=logs)
 
 
 

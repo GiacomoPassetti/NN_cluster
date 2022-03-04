@@ -1,0 +1,64 @@
+(OK) Loading python 3.8.11
+(!!) The SciPy Stack is available: http://www.scipy.org/stackspec.html
+ Built with GCC compilers.
+srun: TOPOLOGY: warning -- no switch can reach all nodes through its descendants.Do not use route/topology
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+8
+[[-0.02385013+0.j         -0.0399402 -0.01967102j  0.01024589-0.0033882j
+  ...  0.00399481+0.01580314j -0.00249475+0.00712093j
+   0.00169411-0.01686632j]
+ [-0.0399402 +0.01967102j  0.01174577+0.j         -0.00836312+0.01053328j
+  ...  0.01960027+0.02386155j  0.00374493+0.00485422j
+   0.00821081-0.01969988j]
+ [ 0.01024589+0.0033882j  -0.00836312-0.01053328j  0.03157491+0.j
+  ...  0.00064576-0.02354534j  0.00901573-0.00527037j
+   0.01150683+0.00137434j]
+ ...
+ [ 0.00399481-0.01580314j  0.01960027-0.02386155j  0.00064576+0.02354534j
+  ...  0.04802766+0.j          0.02100024-0.00759486j
+   0.00598461+0.01357751j]
+ [-0.00249475-0.00712093j  0.00374493-0.00485422j  0.00901573+0.00527037j
+  ...  0.02100024+0.00759486j -0.01106958+0.j
+   0.01768661+0.00523847j]
+ [ 0.00169411+0.01686632j  0.00821081+0.01969988j  0.01150683-0.00137434j
+  ...  0.00598461-0.01357751j  0.01768661-0.00523847j
+  -0.0106072 +0.j        ]]
+/home/yz004406/.local/lib/python3.8/site-packages/netket/vqs/mc/mc_state/state.py:58: UserWarning: n_samples=500 (41 per MPI rank) does not divide n_chains=192, increased to 576 (48 per MPI rank)
+  warnings.warn(
+  0%|          | 0/400 [00:00<?, ?it/s]
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 50771 RUNNING AT ncm0546
+=   EXIT CODE: 9
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+srun: error: ncm0546: task 0: Out Of Memory
+slurmstepd: error: Detected 2 oom-kill event(s) in step 25780814.0 cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+[mpiexec@ncm0546.hpc.itc.rwth-aachen.de] HYDT_bscu_wait_for_completion (../../tools/bootstrap/utils/bscu_wait.c:151): one of the processes terminated badly; aborting
+[mpiexec@ncm0546.hpc.itc.rwth-aachen.de] HYDT_bsci_wait_for_completion (../../tools/bootstrap/src/bsci_wait.c:36): launcher returned error waiting for completion
+[mpiexec@ncm0546.hpc.itc.rwth-aachen.de] HYD_pmci_wait_for_completion (../../pm/pmiserv/pmiserv_pmci.c:540): launcher returned error waiting for completion
+[mpiexec@ncm0546.hpc.itc.rwth-aachen.de] main (../../ui/mpich/mpiexec.c:1157): process manager error waiting for completion
+255
+Mon Feb 28 14:24:19 CET 2022
+slurmstepd: error: Detected 2 oom-kill event(s) in step 25780814.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+srun: error: ncm0545: task 0: Out Of Memory
+slurmstepd: error: Detected 1 oom-kill event(s) in step 25780813.0 cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.
+[mpiexec@ncm0545.hpc.itc.rwth-aachen.de] HYDT_bscu_wait_for_completion (../../tools/bootstrap/utils/bscu_wait.c:151): one of the processes terminated badly; aborting
+[mpiexec@ncm0545.hpc.itc.rwth-aachen.de] HYDT_bsci_wait_for_completion (../../tools/bootstrap/src/bsci_wait.c:36): launcher returned error waiting for completion
+[mpiexec@ncm0545.hpc.itc.rwth-aachen.de] HYD_pmci_wait_for_completion (../../pm/pmiserv/pmiserv_pmci.c:540): launcher returned error waiting for completion
+[mpiexec@ncm0545.hpc.itc.rwth-aachen.de] main (../../ui/mpich/mpiexec.c:1157): process manager error waiting for completion
+255
+Mon Feb 28 14:24:23 CET 2022
+slurmstepd: error: Detected 1 oom-kill event(s) in step 25780813.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.

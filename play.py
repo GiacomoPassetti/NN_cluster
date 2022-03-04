@@ -23,7 +23,7 @@ steps = int(sys.argv[4])
 samples = int(sys.argv[5])
 lr = [0.1, 0.01, 0.005, 0.001]
 J = jnp.array(np.load("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
-print(J)
+#print(J)
 
 class XOperator(AbstractOperator):
   @property
@@ -129,19 +129,22 @@ def first_ord_energy(v1, v2, J, N):
 
        H = 0
        for i in range(static_ind.shape[0]):
+          
            
            dx_ind = jnp.sort(jnp.array([des_ind[0], static_ind[i]]))
            sx_ind = jnp.sort(jnp.array([cre_ind[0], static_ind[i]]))
-           
+
            
 
            sgn1 = Jordan_Wigner_OP(v1, dx_ind[0], dx_ind[1])
-       
-           v_intermediate = v1.at[des_ind[0]].set(0)
-           v_intermediate = v_intermediate.at[static_ind[0]].set(0)
-       
 
+           v_intermediate = v1.at[dx_ind[0]].set(0)
+           v_intermediate = v_intermediate.at[dx_ind[1]].set(0)
+           v_intermediate = v_intermediate.at[sx_ind[1]].set(1)
+
+           
            sgn2 = Jordan_Wigner_OP(v_intermediate, sx_ind[0], sx_ind[1])
+
            H += sgn1*sgn2*J[I_J_conv(sx_ind[0], sx_ind[1]), I_J_conv(dx_ind[0], dx_ind[1])]
        return H
        
@@ -226,7 +229,7 @@ X_OP = XOperator(hi)
 
 
 #optimizer = nk.optimizer.Adam()
-optimizer = nk.optimizer.Sgd(learning_rate = 0.001)
+optimizer = nk.optimizer.Sgd(learning_rate = 0.1)
 
 #print("For this value of the seed the exact GS energy is : ", Exact_ground(seed))
 #model = Module()
@@ -240,18 +243,25 @@ gs = nk.VMC(hamiltonian = X_OP, optimizer = optimizer, variational_state=vs, pre
 
 
 t0 = time.time()
-ID = "J_progressive_run_L_"+str(L)+"seed_"+"{:.2f}".format(seed)+"alpha_"+"{:.2f}".format(alpha)+"samples_"+str(samples)
+ID = "J_constant_run_L_"+str(L)+"seed_"+"{:.2f}".format(seed)+"alpha_"+"{:.2f}".format(alpha)+"samples_"+str(samples)
 
 logs = [
     nk.logging.JsonLog(ID, save_params=True, save_params_every=1),
-    #nk.logging.StateLog("syk_mean", tar=True),
+    #nk.logging.StateLog("state_checkpoint_constant"+ID, tar=True),
 ]
 
+"""
 for step in range(len(lr)):
    gs.optimizer = nk.optimizer.Sgd(learning_rate = lr[step])
    gs.run(steps, out = logs)
+"""
+t0 = time.time()
+gs.run(1 , out = logs)
+print("before compilation", time.time() - t0)
+t1 = time.time()
+gs.run(steps , out = logs)
+print("after compilation", time.time() - t1)
 
-#gs.run(steps, out=logs)
 
 
 

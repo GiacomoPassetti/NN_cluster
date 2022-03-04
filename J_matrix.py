@@ -1,6 +1,6 @@
 import jax
 import numpy as np
-
+import sys
 
 def J_matrix(seed, L):
              print(seed)
@@ -11,5 +11,7 @@ def J_matrix(seed, L):
              J = (J + J.T.conj())*4/norm
              return J
 
+L = int(sys.argv[1])
+seed = int(sys.argv[2])
 
-
+np.save("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy", J_matrix(seed, L))

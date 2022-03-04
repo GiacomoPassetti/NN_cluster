@@ -222,14 +222,11 @@ def Exact_ground_gen_syk(L,J, seed):
 
 
 #Exact_ground_gen_syk(L , J, seed)
-seed = 1
-for L in [4, 6, 8, 10]:
-    print(L)
-
-    J = jnp.array(np.load("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
-
-    assert np.allclose(J, J.conj().T)
-    np.save("ED_syk_energy_L"+str(L)+"seed_"+str(seed)+".npy", Exact_ground_gen_syk(L, J, seed))
+L = int(sys.argv[1])
+seed = int(sys.argv[2])
+J = jnp.array(np.load("J_matrix_L_"+str(L)+"seed_"+str(seed)+".npy"))
+assert np.allclose(J, J.conj().T)
+np.save("ED_syk_energy_L"+str(L)+"seed_"+str(seed)+".npy", Exact_ground_gen_syk(L, J, seed))
 
 
 

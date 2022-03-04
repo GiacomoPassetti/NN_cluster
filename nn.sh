@@ -1,4 +1,4 @@
-for L in 10
+for L in 6
 do
 for alpha in 4 
 do
@@ -6,7 +6,7 @@ for seed in 1 2
 do
 for steps in 2000
 do
-for samples in  800 1000 1200
+for samples in  50 80 100
 do
 
 echo "#!/usr/local_rwth/bin/zsh
